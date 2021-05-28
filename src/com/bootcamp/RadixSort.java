@@ -20,20 +20,16 @@ public class RadixSort {
         for (int i = 0; i < arr.length; i++) {
             String elementoActual = arr[i];
             if (elementoActual.length() < mayorLongitud) {
-                arr[i] = addPad(elementoActual, mayorLongitud);
+                arr[i] = addLeftPad(elementoActual, mayorLongitud, "0");
             }
         }
         return arr;
     }
 
-    public static String addPad(String string, int longitud) {
-        StringBuilder pad = new StringBuilder();
-        if (string.length() < longitud) {
-            for (int i = 0; i < longitud - string.length(); i++) {
-                pad.append("0");
-            }
-        }
-        return pad + string;
+    public static String addLeftPad(String string, int longitud, String pad) {
+        int padLength = longitud - string.length();
+        String repeatedPad = pad.repeat(padLength);
+        return repeatedPad + string;
     }
 
     public static int buscarMayorLongitudElemento(String[] arr) {
@@ -73,8 +69,8 @@ public class RadixSort {
 
             for (int j = 0; j < arr.length; j++) {
                 String numeroActual = elementosOrdenados.get(j);
-                String elementoActual = String.valueOf(numeroActual.charAt(i));
-                listas.get(Integer.valueOf(elementoActual)).add(numeroActual);
+                int elementoActual = Character.getNumericValue(numeroActual.charAt(i));
+                listas.get(elementoActual).add(numeroActual);
             }
 
             elementosOrdenados = new ArrayList<>();
